@@ -1,0 +1,10 @@
+table {
+    background-color: antiquewhite;
+}
+
+#DataTables_Table_0_filter {
+    display: none;
+}
+.dataTables_filter {
+    display: none;
+}

@@ -1,0 +1,6 @@
+.myAlert-bottom{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    height: 60px;
+}

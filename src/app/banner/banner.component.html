@@ -1,0 +1,20 @@
+<div *ngIf="showBanner" class="myAlert-bottom" [ngClass]="{
+    'alert-success':messageType === 'success',
+    'alert-danger': messageType === 'error'
+    
+  }">
+    <a href="javascript:void(0)" (click)="hideBanner()" class="close m-3" data-dismiss="myAlert-bottom" aria-label="close">&times;</a>
+    <div class="toast-body row">
+      <div class="">
+        <span >
+          <i class="fa fa-check-circle fa-2x" *ngIf="messageType === 'success'" aria-hidden="true"></i>
+          <i class="fa fa-times-circle fa-2x" *ngIf="messageType === 'error'" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="mt-1">
+        <span class="ml-2">{{message}}</span>
+      </div>
+      
+    </div>
+   
+  </div>

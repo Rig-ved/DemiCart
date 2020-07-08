@@ -1,0 +1,14 @@
+.home {
+    height: 3em;
+    width: 6em;
+}
+.login-nav {
+    list-style: none;
+}
+.login-anc {
+    color:white;
+    text-decoration: none;
+}
+.dropdown-item {
+    cursor: pointer;
+}

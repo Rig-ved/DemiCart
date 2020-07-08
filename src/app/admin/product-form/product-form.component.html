@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-xs-6">
+        <div class="card mt-3">
+          <div class="card-header">
+            New Product list
+          </div>
+          <div class="card-body">
+            <form #f="ngForm" (ngSubmit)="save(f.value)">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input
+                  type="text"
+                  [(ngModel)]="productItem.title"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  required
+                  #title="ngModel"
+                  placeholder="Enter title"
+                />
+                <div
+                  class="alert alert-danger mt-1"
+                  *ngIf="title.touched && title.invalid"
+                >
+                  <span class="error" *ngIf="title.errors.required"
+                    >Title is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="price">Price</label>
+
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                  </div>
+
+                  <input
+                    type="number"
+                    [(ngModel)]="productItem.price"
+                    class="form-control"
+                    id="price"
+                    name="price"
+                    required
+                    pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"
+                    #price="ngModel"
+                    placeholder="Enter Price"
+                  />
+                </div>
+                <div
+                  class="alert alert-danger mt-1"
+                  *ngIf="price.touched && price.invalid"
+                >
+                  <span class="error" *ngIf="price.errors?.required"
+                    >Price is required</span
+                  >
+                  <span class="error" *ngIf="price.errors?.pattern"
+                    >Price cant be less than 0</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Category">Category</label>
+                <select
+                  id="category"
+                  #category="ngModel"
+                  required
+                  class="form-control"
+                  [(ngModel)]="productItem.category"
+                  name="category"
+                >
+                  <option value="">--Select--</option>
+
+                  <option
+                    *ngFor="let item of categories$ | async"
+                    [value]="item.payload.key"
+                    >{{ item.payload.val().name }}</option
+                  >
+                </select>
+                <div
+                  class="alert alert-danger mt-1"
+                  *ngIf="category.touched && category.invalid"
+                >
+                  <span class="error" *ngIf="category.errors.required"
+                    >Category is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="imageUrl">Preview</label>
+
+                <input
+                  type="text"
+                  [(ngModel)]="productItem.imageUrl"
+                  url
+                  #imageUrl="ngModel"
+                  required
+                  class="form-control"
+                  id="imageUrl"
+                  name="imageUrl"
+                />
+                <div
+                  class="alert alert-danger mt-1"
+                  *ngIf="imageUrl.touched && imageUrl.invalid"
+                >
+                  <span class="error" *ngIf="imageUrl.errors.required"
+                    >Preview is required</span
+                  >
+                  <span class="error" *ngIf="imageUrl.errors.url"
+                    >It Should be a valid URL
+                  </span>
+                </div>
+              </div>
+              <button type="submit" [disabled]="!f.valid" class="btn btn-primary">Save</button>
+              <button type="button" (click)="onCancel()" class="btn btn-danger ml-3">Cancel</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mt-3">
+      <div class="card" style="width: 18rem;" *ngIf="imageUrl.value">
+        <img class="card-img-top" [src]="imageUrl.value"> 
+        <div class="card-body">
+          <h5 class="card-title">{{title.value}}</h5>
+          <div class="row">
+            <p class="card-text col-md-6">{{price.value | currency:'USD':'symbol' }}</p>
+            <p class="card-text col-md-6 small text-info">Category: {{category.value}}</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

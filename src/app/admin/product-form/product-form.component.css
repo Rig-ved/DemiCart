@@ -1,0 +1,7 @@
+select.ng-touched.ng-invalid,input.ng-touched.ng-invalid {
+    border:1px solid red;
+}
+img {
+    height:100%;
+    max-height:50em;
+}
