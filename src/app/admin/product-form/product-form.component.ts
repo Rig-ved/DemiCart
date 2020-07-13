@@ -57,7 +57,7 @@ export class ProductFormComponent implements OnInit,OnDestroy {
     }
 
 
-    this.categories$ = this.catService.getCategories();
+    this.categories$ = this.catService.getAllCategories();
   }
   private bannerMsg(msg) {
     const data: BannerInterface = {

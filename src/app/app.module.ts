@@ -36,7 +36,8 @@ import { AlertComponent } from './alert/alert.component';
 import { PlaceHolderDirective } from './placeholder.directive';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ProductsComponent,//canActivate:[AuthGuardService]//
+  },
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
  
