@@ -1,0 +1,16 @@
+
+<div class="sticky-top">
+<ul class="list-group">
+    <ng-container *ngFor="let item of categories$ | async;let i= index" >
+        <button type="button" *ngIf="i==0" [ngClass]="{'active': category==''}" (click)="redirectToHome(true)" #allCategories class="list-group-item list-group-item-action">
+            All Categories
+        </button>
+        
+        <button type="button" (click)="clickCategory(item)" 
+        [ngClass]="{'active': category==item.key}" class="list-group-item list-group-item-action">
+            <span> {{item.payload.val().name}}</span>
+            <span *ngIf="category!='' && category==item.key" class="badge mt-1 badge-warning badge-pill pull-right">{{filteredProducts.length}}</span>
+        </button>
+    </ng-container>
+  </ul>
+</div>

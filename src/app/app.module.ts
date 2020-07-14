@@ -34,6 +34,8 @@ import { AdminGuardService } from './user-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { AlertComponent } from './alert/alert.component';
 import { PlaceHolderDirective } from './placeholder.directive';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './products/product-card/product-card.component';
 
 const routes: Routes = [
   { path: '', component: ProductsComponent,//canActivate:[AuthGuardService]//
@@ -77,6 +79,8 @@ const routes: Routes = [
     ProductFormComponent,
     AlertComponent,
     PlaceHolderDirective,
+    ProductFilterComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,50 +1,36 @@
-<div class="container mt-3">
+<div class="container">
   <div class="row">
-    <div class="col-lg-3 col-md-3 mt-4">
-        <ul class="list-group">
-            <ng-container *ngFor="let item of categories$ | async;let i= index" >
-                <button type="button" *ngIf="i==0" class="list-group-item list-group-item-action active">
-                    All Categories
-                </button>
-                
-                <button type="button" (click)="clickCategory(item)" 
-                [ngClass]="{'active': category==item.key}" class="list-group-item list-group-item-action">
-                    <span> {{item.payload.val().name}}</span>
-                    <span *ngIf="category!='' && category==item.key" class="badge mt-1 badge-warning badge-pill pull-right">{{filteredProducts.length}}</span>
-                </button>
-            </ng-container>
-            
-       
-            
-          </ul>
+    <div class="col-lg-3 col-md-3">
+      <product-filter
+        [category]="category"
+        (redirectHome)="redirectToHome($event)"
+        [filteredProducts]="filteredProducts"
+      >
+      </product-filter>
     </div>
     <div class="col-lg-9 col-md-9 mt-4">
-        <div class="jumbotron" *ngIf="noProduct && filteredProducts.length == 0">
-            <h3 class="">Oops! No Items match your filter criteria</h3>
-              <a (click)="redirectToHome()" class="btn btn-primary mt-2" href="#" role="button">Redirect to home</a>
-            </div> 
-      <div class="row">
- 
-        <ng-container *ngFor="let item of filteredProducts; let i = index">
-            
-          <div class="col-md-4 mb-4">
-            <div class="card h-100">
-              <img
-                class="card-img-top h-50"
-                [src]="item.imageUrl"
-                alt="Card image cap"
-              />
-              <div class="card-body h-25 p-3">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">
-                  {{ item.price | currency: "USD":"symbol" }}
-                </p>
-                <a href="#" class="btn btn-primary">Add to cart </a>
-              </div>
+        <div class="row" *ngIf="noProduct && filteredProducts.length == 0">
+            <div class="col-md-12 mb-4">
+                <div class="jumbotron" >
+                    <h3 class="">Oops! No Items match your filter criteria</h3>
+                    <a
+                    (click)="redirectToHome()"
+                    class="btn btn-primary mt-2"
+                    href="#"
+                    role="button"
+                    >Redirect to home</a
+                    >
+                </div>
             </div>
+        </div>  
+      
+      <div class="row" *ngIf="filteredProducts?.length > 0">
+        <ng-container *ngFor="let item of filteredProducts; let i = index">
+          <div class="col-md-4 mb-4">
+            <product-card [item]="item" [showActions]="true"> </product-card>
           </div>
 
-          <div *ngIf="(i) % 1 != 0" class="w-100"></div>
+          <div *ngIf="i % 1 != 0" class="w-100"></div>
         </ng-container>
       </div>
     </div>

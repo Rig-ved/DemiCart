@@ -1,0 +1,30 @@
+<div class="card" [ngClass]="{'h-100':showActions}" *ngIf="item.imageUrl">
+    <img
+      class="card-img-top h-50"
+      [src]="item.imageUrl"
+      alt="Card image cap"
+    />
+    <div class="card-body flex-05">
+        <div class="row">
+            <div class="col-8">
+                <h5 class="card-title">
+                    {{ item.title }}
+                </h5>
+            </div>
+            <div class="col-4 small text-truncate">
+                <p class="card-text">
+                    {{ item.price | currency: "USD":"symbol" }}
+                  </p>
+            </div>
+        </div>
+       
+   
+      
+     
+    </div>
+    <div class="card-footer flex-05"  *ngIf="showActions">
+        <a href="#" class="btn btn-primary btn-block">Add to cart </a>
+    </div>
+  </div>
+
+

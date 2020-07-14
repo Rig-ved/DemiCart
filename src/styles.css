@@ -2,3 +2,9 @@
 body {
     background-color: #b7902fe3
 }
+.text-white {
+    color:white!important
+}
+.flex-05 {
+    flex:0.5
+}

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-2">
   <div class="row">
     <div class="col-md-6">
       <div class="col-xs-6">
@@ -122,18 +122,8 @@
       </div>
     </div>
 
-    <div class="col-md-6 mt-3">
-      <div class="card" style="width: 18rem;" *ngIf="imageUrl.value">
-        <img class="card-img-top" [src]="imageUrl.value"> 
-        <div class="card-body">
-          <h5 class="card-title">{{title.value}}</h5>
-          <div class="row">
-            <p class="card-text col-md-6">{{price.value | currency:'USD':'symbol' }}</p>
-            <p class="card-text col-md-6 small text-info">Category: {{category.value}}</p>
-          </div>
-          
-        </div>
-      </div>
+    <div class="col-auto ml-5 mt-3" style="width: 18rem;">
+      <product-card [item]="productItem"></product-card>
     </div>
   </div>
 </div>
