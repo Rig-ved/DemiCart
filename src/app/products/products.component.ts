@@ -65,8 +65,8 @@ export class ProductsComponent implements OnInit,OnDestroy {
           switchMap((res)=>{
             let products =  []
             res.forEach((item)=>{
-                let product:Product = item as Product
-                products.push(product)
+                let product = item 
+                products.push(Object.assign(product.payload.val(), {'key':product.payload.key}))
             })
             this.products = products
             return this.route.queryParamMap

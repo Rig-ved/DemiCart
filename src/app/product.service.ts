@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { from } from 'rxjs';
+import { Product } from './admin/product-form/product-form.component';
+
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +22,7 @@ export class ProductService {
   }
 
   getHomeProducts() {
-    return this.db.list('/products').valueChanges() 
+    return from(this.db.list('/products').snapshotChanges()) 
   }
   getProduct(productId) {
     return this.db.object('/products/' +productId).valueChanges()

@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 export interface Product {
+  $key?:string,
   title:string,
   price:string,
   imageUrl:string,

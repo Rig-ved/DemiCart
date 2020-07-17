@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { CategoryService } from 'src/app/category.service';
@@ -15,8 +15,10 @@ export class ProductFilterComponent implements OnInit {
   @Input('filteredProducts') filteredProducts
   @Output() redirectHome= new EventEmitter<any>()
   @ViewChild('allCategories') allCategories:ElementRef
+ 
 
   constructor(
+    private ngZone:NgZone,
     private router:Router,
     private catService:CategoryService
   ) { }
@@ -27,6 +29,9 @@ export class ProductFilterComponent implements OnInit {
 
   clickCategory(item) {
     this.allCategories.nativeElement.classList="list-group-item list-group-item-action"
+    this.ngZone.runOutsideAngular(()=>{
+      window.scroll(0,0)
+    })
     this.router.navigate(['/'], { queryParams: { category: item.key } });
   }
   redirectToHome(evt) { 
