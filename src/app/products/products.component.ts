@@ -5,6 +5,8 @@ import { SnapshotAction } from '@angular/fire/database';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from '../admin/product-form/product-form.component';
 import { switchMap } from 'rxjs/operators';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { ShoppingCart } from './product-card/product-card.component';
 
 @Component({
   selector: 'products',
@@ -15,7 +17,9 @@ export class ProductsComponent implements OnInit,OnDestroy {
 
   products$ :  Observable<SnapshotAction<unknown>[]>
   productSub: Subscription
+  cartSub:Subscription
   products:Product[]=[]
+  cart:any
   
   category:string=""
   filteredProducts: Product[];
@@ -24,13 +28,15 @@ export class ProductsComponent implements OnInit,OnDestroy {
 
   constructor(private prodService:ProductService,
     private router:Router,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private cartService:ShoppingCartService
     ) { }
   
   
   ngOnDestroy(): void {
     if(this.productSub)
      this.productSub.unsubscribe()
+     if(this.cartSub) this.cartSub.unsubscribe() 
   }
 
   filterProducts() {
@@ -55,12 +61,14 @@ export class ProductsComponent implements OnInit,OnDestroy {
     this.router.navigate([''])
     this.noProduct = false
   }
-
   ngOnInit(): void {
     
       if(this.noProduct == true) {
         this.noProduct = false
       }
+      this.cartService.getCart().subscribe((res:any)=>{
+        this.cart = res.items as ShoppingCart
+      })
       this.prodService.getHomeProducts().pipe(
           switchMap((res)=>{
             let products =  []

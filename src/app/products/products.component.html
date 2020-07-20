@@ -27,7 +27,7 @@
       <div class="row" *ngIf="filteredProducts?.length > 0">
         <ng-container *ngFor="let item of filteredProducts; let i = index">
           <div class="col-md-4 mb-4">
-            <product-card [item]="item" [showActions]="true"> </product-card>
+            <product-card [item]="item" [shoppingCart]="cart" [showActions]="true"> </product-card>
           </div>
 
           <div *ngIf="i % 1 != 0" class="w-100"></div>

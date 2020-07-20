@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { from } from 'rxjs';
 import { Product } from './admin/product-form/product-form.component';
-import { take } from 'rxjs/operators';
+import { take, switchMap } from 'rxjs/operators';
 
 
 export interface ShoppingCartItem {
@@ -16,6 +16,7 @@ export interface ShoppingCartItem {
 
 
 export class ShoppingCartService {
+  
   constructor(private db: AngularFireDatabase,) {}
   private async create() {
     return await
@@ -25,8 +26,17 @@ export class ShoppingCartService {
   
   }
 
-  private getCart(cart) {
-    return this.db.object('/shopping-carts' + cart.key).valueChanges();
+  getCart() {
+    let observable =  from(this.getOrCreateCart().then((item)=>{
+      return this.db.object('/shopping-carts/'+item);
+    }))
+    return observable.pipe(
+      switchMap((item)=>{
+        return item.valueChanges()
+      })
+    )
+    
+   
   }
 
   private async getOrCreateCart() {
@@ -42,15 +52,21 @@ export class ShoppingCartService {
   }
 
   async addToCart(product:Product) {
-    
+    this.updateCart(product,1)
+  }
+
+  async removeFromCart(product: Product) {
+      this.updateCart(product,-1)
+  }
+
+  private async updateCart(product,diff) {
     let cartId =  await this.getOrCreateCart()
     let item$ = this.getItem(cartId,product.key)
-
     item$.valueChanges().pipe(
       take(1)
     ).subscribe((item:ShoppingCartItem)=>{
-      if(item) item$.update({quantity:item.quantity +1})
-      else item$.update({product:product,quantity:1})
+      if(item) item$.update({quantity:item.quantity + diff})
+      else item$.update({product:product,quantity:0})
     })
   }
 }
