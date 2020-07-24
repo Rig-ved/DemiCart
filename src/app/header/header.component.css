@@ -11,4 +11,18 @@
 }
 .dropdown-item {
     cursor: pointer;
+
+}
+.header-cart {
+    height: 2em;
+    width: 2.5em;
+}
+.notify-badge {
+    position: absolute;
+    left: 2.5em;
+    text-align: center;
+    border-radius: 20px;
+    top: -13%;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

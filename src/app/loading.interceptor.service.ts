@@ -25,7 +25,6 @@ import { SpinnerService } from './spinner.service';
       req: HttpRequest<any>,
       next: HttpHandler
     ):Observable<HttpEvent<any>> {
-        debugger
       this.numberOfRequests++;
       this.spinnerService.showLoader();
       return next.handle(req).pipe(

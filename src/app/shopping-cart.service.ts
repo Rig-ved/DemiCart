@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { from } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { Product } from './admin/product-form/product-form.component';
 import { take, switchMap } from 'rxjs/operators';
 
 
-export interface ShoppingCartItem {
+export interface  ShoppingCartItem {
   product:Product,
   quantity:number
 }
@@ -13,10 +13,8 @@ export interface ShoppingCartItem {
 @Injectable({
   providedIn: 'root',
 })
-
-
 export class ShoppingCartService {
-  
+  shoppingCartSubject = new Subject()
   constructor(private db: AngularFireDatabase,) {}
   private async create() {
     return await
@@ -53,20 +51,30 @@ export class ShoppingCartService {
 
   async addToCart(product:Product) {
     this.updateCart(product,1)
+   
   }
 
   async removeFromCart(product: Product) {
       this.updateCart(product,-1)
+      
   }
 
   private async updateCart(product,diff) {
+    
     let cartId =  await this.getOrCreateCart()
     let item$ = this.getItem(cartId,product.key)
     item$.valueChanges().pipe(
       take(1)
     ).subscribe((item:ShoppingCartItem)=>{
       if(item) item$.update({quantity:item.quantity + diff})
-      else item$.update({product:product,quantity:0})
+      else item$.update({product:product,quantity:1})
     })
+
+  }
+
+ 
+  clearCart() {
+    from(this.db.object('/shopping-carts/' + localStorage.getItem('shoppingCartId')).remove());
+    
   }
 }

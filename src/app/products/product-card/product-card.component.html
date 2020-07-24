@@ -25,6 +25,7 @@
       
      
     </div>
+    
     <div class="card-footer flex-05 mb-xl-n3"  *ngIf="showActions">
         <button  *ngIf="getQuantity() == 0;else updateQty" (click)="addToCart()" class="btn btn-primary btn-block">Add to cart </button>
         <ng-template #updateQty>
