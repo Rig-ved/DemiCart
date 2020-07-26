@@ -72,17 +72,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     this.cartService.getCart().
     subscribe((res: any) => {
-      if (res) {
-        this.cart = res.items as ShoppingCart;
-        this.cartService.shoppingCartSubject.next({
+      if (!res) return this.cart =  null 
+      this.cart = res.items as ShoppingCart;
+      this.cartService.shoppingCartSubject.next({
           case: 'default',
           items: res.items,
           product:res.items
         });
-      } 
-      else {
-        this.cart = null
-      }
     });
     this.prodService
       .getHomeProducts()

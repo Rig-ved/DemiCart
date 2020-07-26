@@ -54,15 +54,12 @@ export class ProductCardComponent implements OnInit {
     this.shoppingCartService.shoppingCartSubject.next({
       case:'delete',items:1, product:this.item
     })
-    this.bannerMsg(this.item,'was successfully removed from cart')
+    this.bannerMsg(this.item,' was successfully removed from cart')
   }
 
   getQuantity() {
       let productWithQty:ShoppingCartItem
       if(!this.shoppingCart) return 0
-      else if(localStorage.getItem('shoppingCartId')=='clearCart'){
-        return 0;
-      }
       else {
         productWithQty = this.shoppingCart[this.item.key] as ShoppingCartItem
         return productWithQty ?  productWithQty.quantity : 0

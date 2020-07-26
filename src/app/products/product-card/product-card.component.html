@@ -1,7 +1,8 @@
 <div class="card" [ngClass]="{'h-100':showActions}" *ngIf="item.imageUrl">
     <img
-      class="card-img-top h-50"
+      class="card-img-top h-50 pointer-event"
       [src]="item.imageUrl"
+      [routerLink]="['/admin/products', item.key]"
       alt="Card image cap"
     />
     <span *ngIf="getQuantity() > 0 && getQuantity() == 1" class="img-overlay"> 1 item in cart</span>
