@@ -40,7 +40,11 @@
 
       <!-- Cart Sections -->
       <div class="col-1" >
-        <ul class="ml-md-auto navbar-nav" *ngIf="cartItems > 0">
+      <ng-container *ngIf="cart$ | async as cart">
+      
+      
+        <ul class="ml-md-auto navbar-nav" *ngIf="cart.itemCount > 0">
+
         <li class="nav-item dropdown">
 
           <a 
@@ -56,20 +60,22 @@
              <img class="header-cart" 
              [src]="'https://images.vexels.com/media/users/3/132104/isolated/preview/5f2ebb95984bf47ea01319291eb81f68-shopping-cart-silhouette-icon-by-vexels.png'" 
              alt="home">
-             <span class="badge badge-warning notify-badge text-white">{{cartItems}}</span>
+             <span *ngIf="cart.itemCount > 0" class="badge badge-warning notify-badge text-white">{{cart.itemCount}}</span>
              
           </a>
           <div class="dropdown-menu dropdown-menu-lg-right text-lg-center alert-success" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Checkout</a>
+            <a class="dropdown-item"  [routerLink]="[ '/shopping-cart' ]">Go to cart </a>
             
             <a class="dropdown-item" href="#" (click)="clearCart()" >Clear cart</a>
           </div>
         </li>
       </ul>
         
-        
+    </ng-container>
       </div>
 
+   
+       <!-- Cart Sections ends-->
       <!-- User templates Sections -->
       <div class="col-1">
         <ng-template #login>

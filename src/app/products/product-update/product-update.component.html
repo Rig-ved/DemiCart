@@ -1,0 +1,49 @@
+<button
+*ngIf="qty == 0; else updateQty"
+(click)="addToCart()"
+class="btn btn-primary btn-block"
+>
+Add to cart
+</button>
+<ng-template #updateQty>
+<div class="">
+    <div class="row">
+      <div class="input-group">
+
+        <div class="input-group-prepend">
+          <button class="btn btn-danger" (click)="removeFromCart(qty)">
+            <span class="text-center">-</span>
+          </button>
+        </div>
+
+
+        <input *ngIf="!readOnly"
+          type="text"
+          class="h-100 form-control"
+          ngModel = "qty"
+          
+          [disabled]="readOnly"
+          #updateCart
+          ngModel
+          [maxLength]="1"
+          placeholder="Bulk update"
+        />
+
+        <div class="input-group-append">
+          <button class="btn btn-success" (click)="addToCart()">
+            <span class="text-center">+</span>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  
+</ng-template>
+
+
+
+
+
+

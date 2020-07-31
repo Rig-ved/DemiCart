@@ -1,56 +1,34 @@
-<div class="card" [ngClass]="{'h-100':showActions}" *ngIf="item.imageUrl">
-    <img
-      class="card-img-top h-50 pointer-event"
-      [src]="item.imageUrl"
-      [routerLink]="['/admin/products', item.key]"
-      alt="Card image cap"
-    />
-    <span *ngIf="getQuantity() > 0 && getQuantity() == 1" class="img-overlay"> 1 item in cart</span>
-    <span *ngIf="getQuantity() > 0 && getQuantity() != 1" class="img-overlay"> {{getQuantity()}} items in cart</span>
+<div class="card" [ngClass]="{ 'h-100': showActions }" *ngIf="item.imageUrl">
+  <img
+    class="card-img-top h-50 pointer-event"
+    [src]="item.imageUrl"
+    [routerLink]="['/admin/products', item.key]"
+    alt="Card image cap"
+  />
+  <span *ngIf="getQuantity() > 0 && getQuantity() == 1" class="img-overlay small text-muted text-sm-center">
+    1 item in cart</span
+  >
+  <span *ngIf="getQuantity() > 0 && getQuantity() != 1" class="img-overlay small text-muted text-sm-center">
+    {{ getQuantity() }} items in cart</span
+  >
 
-    <div class="card-body flex-05">
-        <div class="row">
-            <div class="col-8">
-                <h5 class="card-title">
-                    {{ item.title }}
-                </h5>
-            </div>
-            <div class="col-4 small text-truncate">
-                <p class="card-text">
-                    {{ item.price | currency: "USD":"symbol" }}
-                  </p>
-            </div>
-        </div>
-       
-   
-      
-     
+  <div class="card-body flex-05">
+    <div class="row">
+      <div class="col-8">
+        <h5 class="card-title">
+          {{ item.title }}
+        </h5>
+      </div>
+      <div class="col-4 small">
+        <p class="card-text">
+          {{ item.price | currency: "USD":"symbol" }} / item
+        </p>
+      </div>
     </div>
-    
-    <div class="card-footer flex-05 mb-xl-n3"  *ngIf="showActions">
-        <button  *ngIf="getQuantity() == 0;else updateQty" (click)="addToCart()" class="btn btn-primary btn-block">Add to cart </button>
-        <ng-template #updateQty>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2 p-0">
-                        <button class="btn btn-primary btn-block rounded-pill" (click)="removeFromCart()"><span class="text-center">-</span></button>
-                    </div>
-                    <div class="col-md-8 pt-1">
-                        <span class="text-center pl-4" *ngIf="getQuantity() > 0 && getQuantity() == 1"> {{getQuantity()}} item</span>
-                        <span class="text-center pl-4" *ngIf="getQuantity() > 0 && getQuantity() != 1"> {{getQuantity()}} items</span>
-                    </div>
-                    <div class="col-md-2 p-0">
-                        <button class="btn btn-primary btn-block rounded-pill" (click)="addToCart()"><span class="text-center">+</span></button>
-                    </div>
-                </div>
-            </div>
-           
-        </ng-template>
-        
-        
-       
-    </div>
-
   </div>
 
-
+  <div class="card-footer flex-05 mb-xl-n3" *ngIf="showActions">
+    <product-update [item]="item" [readOnly]="false" [qty]="getQuantity()"></product-update>  
+  </div>
+</div>
+<!-- [disabled]="updateCart.value < 1" -->

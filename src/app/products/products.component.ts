@@ -12,7 +12,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from '../admin/product-form/product-form.component';
 import { switchMap } from 'rxjs/operators';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { ShoppingCart } from './product-card/product-card.component';
+
 
 @Component({
   selector: 'products',
@@ -50,6 +50,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             return item.category.toLowerCase() == this.category.toLowerCase();
           })
         : this.products;
+       
     if (this.filteredProducts.length == 0) {
       this.filteredProducts = [];
       this.noProduct = true;
@@ -73,13 +74,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.cartService.getCart().
     subscribe((res: any) => {
       if (!res) return this.cart =  null 
-      this.cart = res.items as ShoppingCart;
-      this.cartService.shoppingCartSubject.next({
-          case: 'default',
-          items: res.items,
-          product:res.items
-        });
+      this.cart = res;
     });
+
+    this.populateProducts()
+    
+  }
+
+  private populateProducts() {
     this.prodService
       .getHomeProducts()
       .pipe(
@@ -87,8 +89,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
           let products = [];
           res.forEach((item) => {
             let product = item;
+            let item$ = Object(product.payload.val())
             products.push(
-              Object.assign(product.payload.val(), { key: product.payload.key })
+              { ...item$, key: product.payload.key }
             );
           });
           this.products = products;

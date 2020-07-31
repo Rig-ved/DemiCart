@@ -36,6 +36,11 @@ import { AlertComponent } from './alert/alert.component';
 import { PlaceHolderDirective } from './placeholder.directive';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
+import { PluralizePipe } from './pluralize.pipe';
+import { KeysPipe } from './keys.pipe';
+import { ProductUpdateComponent } from './products/product-update/product-update.component';
+import { ShoppingGuardService } from './shopping-guard.service';
+import { TooltipDirective } from './tooltip.directive';
 
 const routes: Routes = [
   { path: '', component: ProductsComponent,//canActivate:[AuthGuardService]//
@@ -43,7 +48,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
  
-  { path: 'shopping-cart', component: ShoppingCartComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent,canActivate:[ShoppingGuardService] },
 
   
   { path: 'checkout', component: CheckoutComponent,canActivate:[AuthGuardService] },
@@ -81,6 +86,10 @@ const routes: Routes = [
     PlaceHolderDirective,
     ProductFilterComponent,
     ProductCardComponent,
+    PluralizePipe,
+    KeysPipe,
+    ProductUpdateComponent,
+    TooltipDirective,
   ],
   imports: [
     BrowserModule,

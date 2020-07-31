@@ -1,8 +1,52 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { from, Subject } from 'rxjs';
+import { from, Subject, Observable } from 'rxjs';
 import { Product } from './admin/product-form/product-form.component';
-import { take, switchMap } from 'rxjs/operators';
+import { take, switchMap, map } from 'rxjs/operators';
+
+
+export class ShoppingCart {
+    
+  // constructor(public items:ShoppingCartItem){}
+
+   
+   constructor(public items: {[key:string]:ShoppingCartItem} ){}
+
+  get idProducts() {
+    return Object.keys(this.items)
+  }
+
+  get products(){
+    let products:any[] = [] 
+    for (let productId in this.items) {
+      products.push({
+        'quantity':this.items[productId].quantity,
+        'product':this.items[productId].product,
+        'totalPrice': (this.items[productId].quantity * Number(this.items[productId].product.price) )
+      })
+    }
+    return products
+  } 
+
+  get totalPrice() {
+      let cartPrice = 0;
+      let products = this.products
+      for (let item of products) {
+        cartPrice+= item.totalPrice
+      }
+      return cartPrice
+  }
+
+  
+  get itemCount() {
+    let cartItems = 0;
+    for (let productId in this.items) {
+      cartItems+= this.items[productId].quantity
+    }
+    return cartItems
+  }
+}
+
 
 
 export interface  ShoppingCartItem {
@@ -14,11 +58,9 @@ export interface  ShoppingCartItem {
   providedIn: 'root',
 })
 export class ShoppingCartService {
-  shoppingCartSubject = new Subject()
   constructor(private db: AngularFireDatabase,) {}
   private async create() {
-    return await
-      this.db.list('/shopping-carts').push({
+    return await this.db.list('/shopping-carts').push({
         dateCreated: new Date().getTime(),
       })
   
@@ -31,6 +73,10 @@ export class ShoppingCartService {
     return observable.pipe(
       switchMap((item)=>{
         return item.valueChanges()
+      }),
+      map((res:ShoppingCart)=>{
+          if(!res) return null
+          return new ShoppingCart(res.items)
       })
     )
     
@@ -49,14 +95,20 @@ export class ShoppingCartService {
       return this.db.object('/shopping-carts/'+cartId+'/items/'+productId);
   }
 
-  async addToCart(product:Product) {
-    this.updateCart(product,1)
-   
+  async addToCart(product:Product,number) {
+    if(number > 1) 
+      this.updateCart(product,number)
+    else 
+      this.updateCart(product,1)
+      
   }
 
-  async removeFromCart(product: Product) {
+  async removeFromCart(product: Product,number:number) {
+    if(number > 1)  
+      this.updateCart(product,-number)
+    else {
       this.updateCart(product,-1)
-      
+    }
   }
 
   private async updateCart(product,diff) {
@@ -74,7 +126,7 @@ export class ShoppingCartService {
 
  
   clearCart() {
-    from(this.db.object('/shopping-carts/' + localStorage.getItem('shoppingCartId')).remove());
+    return from(this.db.object('/shopping-carts/' + localStorage.getItem('shoppingCartId')).remove());
     
   }
 }
