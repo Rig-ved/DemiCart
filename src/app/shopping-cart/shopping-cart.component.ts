@@ -18,7 +18,6 @@ export class ShoppingCartComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.cartService.getCart().subscribe((res)=>{
-      
       this.cart = res
     })
   }
@@ -32,6 +31,9 @@ export class ShoppingCartComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy () {
     if(this.cartSub) this.cartSub.unsubscribe()
+  }
+  checkout() {
+    this.router.navigate(['/checkout'])
   }
 
 }

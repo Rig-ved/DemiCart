@@ -18,12 +18,16 @@ export class ShoppingCart {
 
   get products(){
     let products:any[] = [] 
+    
     for (let productId in this.items) {
-      products.push({
-        'quantity':this.items[productId].quantity,
-        'product':this.items[productId].product,
-        'totalPrice': (this.items[productId].quantity * Number(this.items[productId].product.price) )
-      })
+      if(this.items[productId].quantity > 0 ) {
+        products.push({
+          'quantity':this.items[productId].quantity,
+          'product':this.items[productId].product,
+          'totalPrice': (this.items[productId].quantity * Number(this.items[productId].product.price) )
+        })
+      }
+      
     }
     return products
   } 
@@ -123,7 +127,9 @@ export class ShoppingCartService {
     })
 
   }
-
+  removeOrder() {
+    return from(this.db.object('/orders').remove())
+  }
  
   clearCart() {
     return from(this.db.object('/shopping-carts/' + localStorage.getItem('shoppingCartId')).remove());

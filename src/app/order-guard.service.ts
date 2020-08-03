@@ -3,21 +3,22 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { ShoppingCartService } from './shopping-cart.service';
 import { map } from 'rxjs/operators';
+import { CheckoutService } from './checkout.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingGuardService implements CanActivate {
+export class OrderGuardService implements CanActivate {
 
   constructor(
-    private shoppingCartServ:ShoppingCartService,
+    private checkoutServ:CheckoutService,
     private router:Router
   ) { }
   canActivate(route:ActivatedRouteSnapshot, state: RouterStateSnapshot): 
   boolean  | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | UrlTree {
-    return this.shoppingCartServ.getCart().pipe(
-      map((cart)=>{
-        if(cart && cart.itemCount > 0) return true
+    return this.checkoutServ.getOrder().pipe(
+      map((item)=>{
+        if(item) return true
         this.router.navigate(['/'])
         return false
       })

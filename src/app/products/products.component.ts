@@ -30,12 +30,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filteredProducts: Product[];
   noProduct: boolean = false;
   @ViewChild('allCategories', { static: false }) allCategories: ElementRef;
+ 
 
   constructor(
     private prodService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private cartService: ShoppingCartService
+    private cartService: ShoppingCartService,
+    
   ) {}
 
   ngOnDestroy(): void {
@@ -71,6 +73,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.noProduct = false;
     }
 
+
     this.cartService.getCart().
     subscribe((res: any) => {
       if (!res) return this.cart =  null 
@@ -78,8 +81,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
 
     this.populateProducts()
+   
     
   }
+
+ 
 
   private populateProducts() {
     this.prodService

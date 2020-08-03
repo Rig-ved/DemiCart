@@ -1,1 +1,131 @@
-<p>checkout works!</p>
+<div class="container mt-3">
+  <div class="">
+    <div class="card">
+      <div class="card-header">
+        Checkout
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="title-header text-center p-3">Shipping Summary</p>
+              <form #f="ngForm" (ngSubmit)="save(f.value)">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    autocomplete="asasas"
+                    [(ngModel)]="shippingItem.name"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    required
+                    #name="ngModel"
+                    placeholder="Enter name"
+                  />
+                  <div
+                    class="alert-danger mt-1"
+                    *ngIf="name.touched && name.invalid"
+                  >
+                    <span class="error" *ngIf="name.errors.required"
+                      >Name is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="addressLine1">Address</label>
+                  <input
+                    type="text"
+                    autocomplete="vfgffg"
+                    [(ngModel)]="shippingItem.addressLine1"
+                    class="form-control"
+                    id="addressLine1"
+                    name="addressLine1"
+                    required
+                    #addressLine1="ngModel"
+                    placeholder="Line 1"
+                  />
+                  <div
+                    class="alert-danger mt-1"
+                    *ngIf="addressLine1.touched && addressLine1.invalid"
+                  >
+                    <span class="error" *ngIf="addressLine1.errors.required"
+                      >Address 1 is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="text"
+                    autocomplete="vgdfrfcvvtfgt"
+                    [(ngModel)]="shippingItem.addressLine2"
+                    class="form-control"
+                    id="addressLine2"
+                    name="addressLine2"
+                    #addressLine2="ngModel"
+                    placeholder="Line 2"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    type="text"
+                    autocomplete="aeasas"
+                    [(ngModel)]="shippingItem.city"
+                    class="form-control"
+                    id="city"
+                    name="city"
+                    required
+                    (ngModelChange)="this.city$.next($event)"
+                    #city="ngModel"
+                    placeholder="Enter city"
+                  />
+                  <div
+                    class="alert-danger mt-1"
+                    *ngIf="city.touched && city.invalid"
+                  >
+                    <span class="error" *ngIf="city.errors.required"
+                      >City is required</span
+                    >
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="this.shippingItem.state">
+                  <label for="state">State</label>
+                  <input
+                    type="text"
+                    [attr.disabled]="true"
+                    autocomplete="aeasasqqwqw"
+                    [ngModel]="shippingItem.state"
+                    class="form-control"
+                    id="state"
+                    name="state"
+                    required
+                    #state="ngModel"
+                    placeholder="Enter city"
+                  />
+                </div>
+                <input type="text" class="hidden" />
+                <button
+                  type="submit"
+                  [disabled]="!f.valid"
+                  class="btn btn-primary pull-right"
+                >
+                  Save
+                </button>
+              </form>
+            </div>
+            <div class="col-sm ml-5 " style="border-left: 1px solid grey;">
+              <div class="title-header">
+                <p class="text-center p-3">Order Summary</p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

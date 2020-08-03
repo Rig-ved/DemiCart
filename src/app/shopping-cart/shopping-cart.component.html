@@ -6,17 +6,30 @@
           <h5>Shopping Cart</h5>
         </div>
 
-        <div class="col-md-8 text-muted">
-          <span class="pull-right" *ngIf="cart?.itemCount > 0">
-            You have {{ cart?.itemCount }}
-            {{ cart.itemCount | pluralize: "item":"items" }}
-            in your cart
-          </span>
-          <span class="pull-right" *ngIf="cart?.itemCount == 0">
-            You have no
-            {{ cart.itemCount | pluralize: "item":"items" }}
-            in your cart
-          </span>
+        <div class="col-md-8 ">
+          <div class="container">
+            <div class="row ">
+              <div class="col-md-5  text-muted">
+                
+                <span class="pull-right" *ngIf="cart?.itemCount > 0">
+                  You have {{ cart?.itemCount }}
+                  {{ cart.itemCount | pluralize: "item":"items" }}
+                  in your cart
+                </span>
+                <span class="pull-right" *ngIf="cart?.itemCount == 0">
+                  You have no
+                  {{ cart.itemCount | pluralize: "item":"items" }}
+                  in your cart
+                </span>
+              </div>
+              <div class="col-md-7">
+                <button class="btn pull-right btn-primary" (click)="checkout()" *ngIf="cart?.itemCount > 0" >Checkout cart</button>
+               
+              </div>
+            </div>
+          </div>
+         
+         
         </div>
       </div>
 

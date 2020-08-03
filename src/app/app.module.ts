@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { DataTablesModule } from 'angular-datatables';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 // Angular fire Module from fire store
 import { AngularFireModule } from '@angular/fire';
@@ -27,7 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './page-not-found/pagenotfound.component';
 import { BannerComponent } from './banner/banner.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingInterceptorService } from './loading.interceptor.service';
 import { AuthGuardService } from './auth-guard.service';
 import { AdminGuardService } from './user-guard.service';
@@ -41,18 +42,21 @@ import { KeysPipe } from './keys.pipe';
 import { ProductUpdateComponent } from './products/product-update/product-update.component';
 import { ShoppingGuardService } from './shopping-guard.service';
 import { TooltipDirective } from './tooltip.directive';
+import { OrderGuardService } from './order-guard.service';
+import { OrderDeactivateService } from './order-deactivate.service';
 
 const routes: Routes = [
   { path: '', component: ProductsComponent,//canActivate:[AuthGuardService]//
   },
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
- 
   { path: 'shopping-cart', component: ShoppingCartComponent,canActivate:[ShoppingGuardService] },
 
-  
-  { path: 'checkout', component: CheckoutComponent,canActivate:[AuthGuardService] },
-  { path: 'confirmation', component: ConfirmationComponent,canActivate:[AuthGuardService] },
+  { path: 'checkout', component: CheckoutComponent,canActivate:[AuthGuardService,ShoppingGuardService] },
+  { path: 'confirmation', component: ConfirmationComponent,
+        canActivate:[AuthGuardService,OrderGuardService] ,
+        canDeactivate:[OrderDeactivateService]
+  },
   { path: 'my/orders', component: MyOrdersComponent,canActivate:[AuthGuardService] },
 
   { path: 'admin/products', component: AdminProductsComponent,canActivate:[AuthGuardService,AdminGuardService] },
@@ -60,9 +64,8 @@ const routes: Routes = [
   { path: 'admin/products/:id', component: ProductFormComponent,canActivate:[AuthGuardService,AdminGuardService] },
  
   { path: 'admin/orders', component: AdminOrdersComponent,canActivate:[AuthGuardService,AdminGuardService] },
-
-
   { path: '**', component: HomeComponent },
+
 ];
 
 @NgModule({
@@ -92,9 +95,11 @@ const routes: Routes = [
     TooltipDirective,
   ],
   imports: [
+   
     BrowserModule,
     FormsModule,
     CustomFormsModule,
+    HttpClientModule,
     DataTablesModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebase),
@@ -102,6 +107,7 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    
   ],
   providers: [
     {

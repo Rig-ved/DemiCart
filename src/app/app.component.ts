@@ -29,6 +29,7 @@ export class AppComponent implements OnInit,OnDestroy{
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
+      
       }
   });
   }
