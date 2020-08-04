@@ -7,7 +7,7 @@
       <div class="card-body">
         <div class="container">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-md-4">
               <p class="title-header text-center p-3">Shipping Summary</p>
               <form #f="ngForm" (ngSubmit)="save(f.value)">
                 <div class="form-group">
@@ -117,11 +117,18 @@
                 </button>
               </form>
             </div>
-            <div class="col-sm ml-5 " style="border-left: 1px solid grey;">
+            <div class="col-md-8" style="border-left: 1px solid grey;">
               <div class="title-header">
                 <p class="text-center p-3">Order Summary</p>
               </div>
-              
+              <div class="mt-2" *ngIf="cart && cart.products.length > 0">
+                <!-- Place order summary -->
+                <order-summary [cart]="cart" [iterable]="cart.products"></order-summary>
+              </div>
+
+              <div class="mt-3">
+                  <button class="btn btn-primary" (click)="editOrder()">Edit Order</button>
+              </div>
             </div>
           </div>
         </div>

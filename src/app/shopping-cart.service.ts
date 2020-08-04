@@ -8,9 +8,7 @@ import { take, switchMap, map } from 'rxjs/operators';
 export class ShoppingCart {
     
   // constructor(public items:ShoppingCartItem){}
-
-   
-   constructor(public items: {[key:string]:ShoppingCartItem} ){}
+  constructor(public items: {[key:string]:ShoppingCartItem} ){}
 
   get idProducts() {
     return Object.keys(this.items)

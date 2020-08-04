@@ -1,7 +1,9 @@
-export interface ShippingRequest {
-  dateCreated:Date,
+export interface CheckoutRequest {
+  uid:string
+  dateCreated:number,
   shipping:ShippingOrder,
-  cart:ShoppingCart
+  cart: Array<any>,
+ 
 }
 
 
@@ -18,6 +20,7 @@ import { SpinnerService } from '../spinner.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { Order } from '../order-domain.model';
 
 @Component({
   selector: 'checkout',
@@ -41,21 +44,32 @@ export class CheckoutComponent implements OnInit,OnDestroy {
   }
 
   cart:any
+  uid: string;
+  authSub: Subscription;
+  cartSub: Subscription;
  
   constructor(
     private cartService:ShoppingCartService,
     private checkoutService:CheckoutService,
     private spinnerServ: SpinnerService,
+    private authService:AuthService,
     private router: Router,
     private bannerService: BannerService
   ) { }
   ngOnDestroy(): void {
     if(this.checkoutSub) this.checkoutSub.unsubscribe()
+    if(this.cartSub) this.cartSub.unsubscribe()
+    if( this.authSub)  this.authSub.unsubscribe()
+   
+  }
+
+  editOrder() {
+    this.router.navigate(['/shopping-cart'])
   }
 
   ngOnInit(): void {
-    this.cartService.getCart().pipe(
-      take(1)
+    this.authSub =  this.authService.user$.subscribe((user)=>this.uid = user.uid)
+    this.cartSub = this.cartService.getCart().pipe(
     ).subscribe((res)=>{
       this.cart = res
     })
@@ -94,25 +108,11 @@ export class CheckoutComponent implements OnInit,OnDestroy {
   save(item) {
     if (!item) return   
     this.spinnerServ.showLoader();
-    let order:ShippingRequest = {
-        dateCreated: new Date(),
-        shipping:item,
-        cart:this.cart.products.map((it)=>{
-          return  {
-            product:{
-              title:it.product.title,
-              imageUrl:it.product.imageUrl,
-              price:it.product.price
-            },
-            totalPrice:it.totalPrice,
-            quantity:it.quantity
-          }
-        })
-      }
+    let order:CheckoutRequest = new Order(this.uid,item,this.cart,this.cart.totalPrice)
       
-      this.checkoutService.storeOrder(order).subscribe(()=>{
+      this.checkoutService.storeOrder(order).subscribe((res)=>{
         this.spinnerServ.hideLoader();
-        this.router.navigate(['/confirmation']);
+        this.router.navigate(['/confirmation'],{ queryParams: { orderId: res.key } });
       })
   
     }

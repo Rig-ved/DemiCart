@@ -30,6 +30,10 @@ export class CheckoutService {
     return from(this.db.object('/orders').valueChanges())
   }
 
+  getConfirmOrder() {
+    return from(this.db.object('/orders').valueChanges())
+  }
+
 
 
   constructor(

@@ -44,10 +44,11 @@ import { ShoppingGuardService } from './shopping-guard.service';
 import { TooltipDirective } from './tooltip.directive';
 import { OrderGuardService } from './order-guard.service';
 import { OrderDeactivateService } from './order-deactivate.service';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 const routes: Routes = [
-  { path: '', component: ProductsComponent,//canActivate:[AuthGuardService]//
-  },
+  {path: '', redirectTo: '/products', pathMatch: 'full'},
+  
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent,canActivate:[ShoppingGuardService] },
@@ -64,7 +65,7 @@ const routes: Routes = [
   { path: 'admin/products/:id', component: ProductFormComponent,canActivate:[AuthGuardService,AdminGuardService] },
  
   { path: 'admin/orders', component: AdminOrdersComponent,canActivate:[AuthGuardService,AdminGuardService] },
-  { path: '**', component: HomeComponent },
+  // { path: '**', component: PagenotfoundComponent },
 
 ];
 
@@ -93,6 +94,7 @@ const routes: Routes = [
     KeysPipe,
     ProductUpdateComponent,
     TooltipDirective,
+    OrderSummaryComponent,
   ],
   imports: [
    

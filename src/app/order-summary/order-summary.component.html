@@ -1,0 +1,60 @@
+<table class="table table-sm table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th class="text-center">Quantity</th>
+        <th><span class="pull-right mr-3">Price</span></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <ng-container  *ngFor="let item of orders; let i = index">
+        <tr *ngIf="item.quantity > 0">
+          <td style="width: 15em;">
+            <img
+              class="card-img-top w-25 ml-1 rounded-pill"
+              [src]="item.product.imageUrl"
+              alt="Card image cap"
+            />
+          </td>
+          <td [title]="item.product.title">
+            <span
+              >{{
+                item.product.title.length > 20
+                  ? (item.product.title | slice: 0:20) + "..."
+                  : item.product.title
+              }}
+            </span>
+          </td>
+          <td class="text-center">
+            <span class="mr-4">{{ item.quantity }}</span>
+          </td>
+          <td class="text-right">
+            <span class="ml-4">
+              <span>{{
+                item.product.price | currency: "USD":"symbol"
+              }}</span>
+            </span>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th class="pull-right">
+         
+            <span
+              >Total Price :
+              {{cart.totalPrice | currency: "USD":"symbol"}}</span
+            >
+         
+        </th>
+      </tr>
+    </tfoot>
+
+  </table>
