@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { CategoryService } from 'src/app/category.service';
+import { CategoryService } from 'services/category.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,6 +32,7 @@ export class ProductFilterComponent implements OnInit {
     this.ngZone.runOutsideAngular(()=>{
       window.scroll(0,0)
     })
+    
     this.router.navigate(['/'], { queryParams: { category: item.key } });
   }
   redirectToHome(evt) { 

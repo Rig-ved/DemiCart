@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, LOCALE_ID, Inject } from '@angular/core';
-import { ShoppingCartService, ShoppingCart } from '../shopping-cart.service';
+import { ShoppingCartService, ShoppingCart } from './../services/shopping-cart.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatCurrency, getCurrencySymbol } from '@angular/common';

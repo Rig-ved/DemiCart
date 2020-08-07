@@ -12,7 +12,6 @@ export class Order {
     ) {
         this.dateCreated = new Date().getTime()
         this.cart =  shoppingCart.products.map((it)=>{
-          debugger
             return  {
               product:{
                 title:it.product.title,

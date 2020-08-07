@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { from } from 'rxjs';
-import { Product } from './admin/product-form/product-form.component';
+
 
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Product } from 'src/app/admin/product-form/product-form.component';
-import { ShoppingCartService } from 'src/app/shopping-cart.service';
-import { BannerService, BannerInterface } from 'src/app/banner.service';
+import { Product } from '../../admin/product-form/product-form.component';
+import { ShoppingCartService } from 'services/shopping-cart.service';
+import { BannerService, BannerInterface } from 'services/banner.service';
 
 @Component({
   selector: 'product-update',

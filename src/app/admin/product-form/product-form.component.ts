@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CategoryService } from 'src/app/category.service';
+import { CategoryService } from 'services/category.service';
 import { Observable, Subscription } from 'rxjs';
-import { ProductService } from 'src/app/product.service';
-import { SpinnerService } from 'src/app/spinner.service';
-import { BannerInterface, BannerService } from 'src/app/banner.service';
+import { ProductService } from 'services/product.service';
+import { SpinnerService } from 'services/spinner.service';
+import { BannerInterface, BannerService } from 'services/banner.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 

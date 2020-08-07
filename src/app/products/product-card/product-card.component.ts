@@ -7,14 +7,14 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Product } from 'src/app/admin/product-form/product-form.component';
+import { Product } from '../../admin/product-form/product-form.component';
 import {
   ShoppingCartService,
   ShoppingCartItem,
   ShoppingCart,
-} from 'src/app/shopping-cart.service';
+} from 'services/shopping-cart.service';
 
-import { BannerInterface, BannerService } from 'src/app/banner.service';
+
 import { ProductUpdateComponent } from '../product-update/product-update.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class ProductCardComponent implements OnInit {
   getQuantity() {
     let productWithQty: ShoppingCartItem;
     if (!this.shoppingCart) return 0;
-    else {
+    else if(this.shoppingCart.items){
       productWithQty = this.shoppingCart.items[this.item.key];
       return productWithQty ? productWithQty.quantity : 0;
     }

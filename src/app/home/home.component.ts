@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BannerInterface, BannerService } from '../banner.service';
-import { AuthService } from '../auth.service';
-import { UserService } from '../user.service';
-import { SpinnerService } from '../spinner.service';
+import { BannerInterface, BannerService } from 'services/banner.service';
+import { AuthService } from 'services/auth.service';
+import { UserService } from 'services/user.service';
+import { SpinnerService } from 'services/spinner.service';
 import { Router } from '@angular/router';
 
 import { browserRefresh } from '../app.component';

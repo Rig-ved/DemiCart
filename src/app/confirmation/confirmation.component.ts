@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ShoppingCartService } from '../shopping-cart.service';
-import { OrderDeactivateService, DeactivationGuarded } from '../order-deactivate.service';
-import { Subscription, Observable } from 'rxjs';
-import { CheckoutService } from '../checkout.service';
+import { ShoppingCartService } from 'services/shopping-cart.service';
+import { OrderDeactivateService } from 'services/order-deactivate.service';
+import { Subscription } from 'rxjs';
+import { CheckoutService } from 'services/checkout.service';
 
 @Component({
   selector: 'confirmation',

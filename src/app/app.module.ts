@@ -29,9 +29,9 @@ import { PagenotfoundComponent } from './page-not-found/pagenotfound.component';
 import { BannerComponent } from './banner/banner.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { LoadingInterceptorService } from './loading.interceptor.service';
-import { AuthGuardService } from './auth-guard.service';
-import { AdminGuardService } from './user-guard.service';
+import { LoadingInterceptorService } from 'services/loading.interceptor.service';
+import { AuthGuardService } from 'services/auth-guard.service';
+import { AdminGuardService } from 'services/user-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { AlertComponent } from './alert/alert.component';
 import { PlaceHolderDirective } from './placeholder.directive';
@@ -40,14 +40,14 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { PluralizePipe } from './pluralize.pipe';
 import { KeysPipe } from './keys.pipe';
 import { ProductUpdateComponent } from './products/product-update/product-update.component';
-import { ShoppingGuardService } from './shopping-guard.service';
-import { TooltipDirective } from './tooltip.directive';
-import { OrderGuardService } from './order-guard.service';
-import { OrderDeactivateService } from './order-deactivate.service';
+import { ShoppingGuardService } from 'services/shopping-guard.service';
+import { TooltipDirective } from '../app/services/tooltip.directive';
+import { OrderGuardService } from 'services/order-guard.service';
+import { OrderDeactivateService } from 'services/order-deactivate.service';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
+  {path: '', component: ProductsComponent},
   
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
@@ -65,7 +65,7 @@ const routes: Routes = [
   { path: 'admin/products/:id', component: ProductFormComponent,canActivate:[AuthGuardService,AdminGuardService] },
  
   { path: 'admin/orders', component: AdminOrdersComponent,canActivate:[AuthGuardService,AdminGuardService] },
-  // { path: '**', component: PagenotfoundComponent },
+   { path: '**', component: PagenotfoundComponent },
 
 ];
 

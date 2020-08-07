@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, Subscription } from 'rxjs';
 import * as firebase from 'firebase'
-import { AuthService } from '../auth.service';
-import { BannerInterface, BannerService } from '../banner.service';
+import { AuthService } from '../services/auth.service';
+import { BannerInterface, BannerService } from '../services/banner.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { saveUser } from '../user.service';
-import { ShoppingCartService, ShoppingCart } from '../shopping-cart.service';
+import { saveUser } from '../services/user.service';
+import { ShoppingCartService, ShoppingCart } from '../services/shopping-cart.service';
 import { take } from 'rxjs/operators';
 import { Product } from '../admin/product-form/product-form.component';
 

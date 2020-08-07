@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from 'services/auth.service';
 import { NgForm } from '@angular/forms';
-import { BannerInterface, BannerService } from '../banner.service';
+import { BannerInterface, BannerService } from 'services/banner.service';
 import { Subscription } from 'rxjs';
-import { SpinnerService } from '../spinner.service';
+import { SpinnerService } from 'services/spinner.service';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from 'services/user.service';
 
 @Component({
   selector: 'login',

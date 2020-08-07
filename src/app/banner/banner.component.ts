@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { BannerService, BannerInterface } from "../banner.service";
+import { BannerService, BannerInterface } from "services/banner.service";
 import { Subscription } from "rxjs";
 import { Router, NavigationEnd} from "@angular/router";
 

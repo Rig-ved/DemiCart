@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
-import { ShoppingCart } from '../shopping-cart.service';
+import { ShoppingCart } from 'services/shopping-cart.service';
 
 @Component({
   selector: 'order-summary',

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from 'services/auth.service';
 import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
-import { BannerInterface, BannerService } from './banner.service';
-import { SpinnerService } from './spinner.service';
-import { UserService } from './user.service';
+import { BannerInterface, BannerService } from 'services/banner.service';
+import { SpinnerService } from 'services/spinner.service';
+import { UserService } from 'services/user.service';
 import { Subscription } from 'rxjs';
 
 

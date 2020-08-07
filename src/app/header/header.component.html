@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active"><img class="home" [src]="'/assets/home.png'" alt="home"></a>
+  <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active">
+    <i class="fa header-icon fa-optin-monster fa-2x"></i>
+  </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -15,9 +17,10 @@
   <div class="container">
     <div class="collapse navbar-collapse" id="navbarColor01">
       <div class="col-10">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item text-white">
-            <a class="nav-link text-white" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/shopping-cart']">Shopping Cart</a>
+        <ul class="navbar-nav mr-auto" *ngIf="cart$ | async as cart">
+          <li class="nav-item text-white" *ngIf="cart.itemCount > 0">
+            <a class="btn btn-sm" 
+            (click)="clearCart()">Clear cart</a>
           </li>
          
         </ul>
@@ -54,20 +57,18 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                [routerLink]="[ '/shopping-cart' ]"
               >
           
              
              <img class="header-cart" 
              [src]="'https://images.vexels.com/media/users/3/132104/isolated/preview/5f2ebb95984bf47ea01319291eb81f68-shopping-cart-silhouette-icon-by-vexels.png'" 
              alt="home">
-             <span *ngIf="cart.itemCount > 0" class="badge badge-warning notify-badge text-white">{{cart.itemCount}}</span>
+             <span *ngIf="cart.itemCount > 0" 
+               class="badge badge-warning notify-badge text-white">{{cart.itemCount}}</span>
              
           </a>
-          <div class="dropdown-menu dropdown-menu-lg-right text-lg-center alert-success" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item"  [routerLink]="[ '/shopping-cart' ]">Go to cart </a>
-            
-            <a class="dropdown-item" href="#" (click)="clearCart()" >Clear cart</a>
-          </div>
+        
         </li>
       </ul>
         
@@ -80,7 +81,8 @@
       <div class="col-1">
         <ng-template #login>
           <li class="login-nav text-white">
-            <a class="login-anc text-white" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/login']">Login</a>
+            <a class="login-anc text-white" routerLinkActive="active" 
+            [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/login']">Login</a>
           </li>
         </ng-template>
         <ul class="ml-md-auto navbar-nav" *ngIf="appUser;else login">

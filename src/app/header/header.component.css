@@ -13,6 +13,13 @@
     cursor: pointer;
 
 }
+.header-icon {
+    color: darkblue;
+    border: 1px solid lavender;
+    /* opacity: 0; */
+    padding: 5px;
+    border-width:0.000001px;
+}
 .header-cart {
     height: 2em;
     width: 2.5em;

@@ -8,19 +8,17 @@ export interface CheckoutRequest {
 
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, NgZone } from '@angular/core';
-import { ShippingOrder, CheckoutService } from '../checkout.service';
+import { ShippingOrder, CheckoutService } from 'services/checkout.service';
 import { NgForm } from '@angular/forms';
-import { ShoppingCart, ShoppingCartService } from '../shopping-cart.service';
-import { take, map, filter, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { fromEvent, Subject, Subscription, Observable } from 'rxjs';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-import { BannerInterface, BannerService } from '../banner.service';
-import { SpinnerService } from '../spinner.service';
-import { AuthService } from '../auth.service';
+import {  ShoppingCartService } from 'services/shopping-cart.service';
+import { filter, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {  Subject, Subscription } from 'rxjs';
+
+import {  BannerService } from 'services/banner.service';
+import { SpinnerService } from 'services/spinner.service';
+import { AuthService } from 'services/auth.service';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
-import { Order } from '../order-domain.model';
+import { Order } from 'services/order-domain.model';
 
 @Component({
   selector: 'checkout',
@@ -64,7 +62,7 @@ export class CheckoutComponent implements OnInit,OnDestroy {
   }
 
   editOrder() {
-    this.router.navigate(['/shopping-cart'])
+    this.router.navigate(['/'])
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { from, Subject, Observable } from 'rxjs';
-import { Product } from './admin/product-form/product-form.component';
+import { Product } from '../admin/product-form/product-form.component';
 import { take, switchMap, map } from 'rxjs/operators';
 
 

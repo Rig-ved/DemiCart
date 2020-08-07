@@ -8,12 +8,12 @@ import {
   AfterViewInit,
   NgZone,
 } from '@angular/core';
-import { ProductService } from 'src/app/product.service';
+import { ProductService } from '../../services/product.service';
 import { Observable, Subscription, Subject } from 'rxjs';
-import { BannerInterface, BannerService } from 'src/app/banner.service';
-import { SpinnerService } from 'src/app/spinner.service';
-import { PlaceHolderDirective } from 'src/app/placeholder.directive';
-import { AlertComponent } from 'src/app/alert/alert.component';
+import { BannerInterface, BannerService } from '../../services/banner.service';
+import { SpinnerService } from '../../services/spinner.service';
+import { PlaceHolderDirective } from '../../placeholder.directive';
+import { AlertComponent } from 'app/alert/alert.component';
 import { Product } from '../product-form/product-form.component';
 import { DataTableDirective } from 'angular-datatables';
 
